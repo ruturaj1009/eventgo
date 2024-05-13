@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const {setAuth, setLogggedin} = React.useContext(AuthContext);
+  const {auth,setAuth, setLoggedin} = React.useContext(AuthContext);
 
   const handleLogout=()=>{
     toast.success("Logged out Successfully")
     localStorage.removeItem("authdata");
     navigate("/login");
-    setLogggedin(false);
+    setLoggedin(false);
     setAuth({
       ...auth,
       user:"",
