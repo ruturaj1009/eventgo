@@ -7,15 +7,24 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const UserMenu = () => {
-  const { auth } = React.useContext(AuthContext);
-  const history = useNavigate();
-
+  const navigate = useNavigate();
+  const { auth, setAuth, setLoggedin } = React.useContext(AuthContext);
   React.useEffect(() => {
-    if (!auth.user) {
-      toast.warning("Login to Continue")
-      history("/login");
+    const data = localStorage.getItem("authdata");
+    if (data) {
+      const parseData = JSON.parse(data);
+      setAuth({
+        ...auth,
+        user: parseData.user,
+        token: parseData.token,
+      });
+      setLoggedin(true);
     }
-  }, [auth.user, history]);
+    else{
+      toast.error("Log in to continue")
+      navigate("/login")
+    }
+  }, []);
 
   return (
     <>

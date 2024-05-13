@@ -11,11 +11,14 @@ export function AuthProvider({ children }) {
   const [loggedin, setLoggedin] = useState(false);
 
   useEffect(() => {
-    const authdata = localStorage.getItem("authdata");
-    if (authdata) {
-      const { user, token } = JSON.parse(authdata);
-      setAuth({ user, token });
-      setLoggedin(true);
+    const data = localStorage.getItem("authdata");
+    if (data) {
+      const parseData = JSON.parse(data);
+      setAuth({
+        ...auth,
+        user: parseData.user,
+        token: parseData.token,
+      });
     }
   }, []);
 
