@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 
 const CreateEventModal = ({ showModal, setShowModal, fetchData }) => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const CreateEventModal = ({ showModal, setShowModal, fetchData }) => {
     image_link: "",
   });
   const [selectedFile, setSelectedFile] = useState(null);
+  const {auth} = useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +67,7 @@ const CreateEventModal = ({ showModal, setShowModal, fetchData }) => {
   const handleCreateEvent = () => {
     const userData = {
       ...formData,
-      organizer: "663f304a27f7c26170bd5581",
+      organizer: auth.user.id,
     };
     console.log(userData);
     axios
