@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`;
-  }, [auth.token]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, loggedin, setLoggedin }}>

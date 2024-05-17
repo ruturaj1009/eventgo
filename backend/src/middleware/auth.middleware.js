@@ -7,7 +7,7 @@ exports.authenticate = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         status: false,
-        message: "Unauthorized Access",
+        message: "Token expired",
       });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

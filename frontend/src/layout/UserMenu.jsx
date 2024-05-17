@@ -5,7 +5,6 @@ import Sidebar from "../component/Sidebar";
 import { Outlet } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 const UserMenu = () => {
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ const UserMenu = () => {
         token: parseData.token,
       });
       setLoggedin(true);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`;
     }
     else{
       toast.error("Log in to continue")

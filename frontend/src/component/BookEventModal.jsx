@@ -36,11 +36,11 @@ const BookEventModal = ({ showModal, setShowModal, eventData, fetchData }) => {
       .then((response) => {
         setShowModal(false);
             toast.success(response.data.message);
-        // toast.success("Event booked successfully!");
         fetchData();
       })
       .catch((error) => {
         console.log(error)
+        setShowModal(false);
         if (error.response) {
               toast.error(error.response.data.message);
           } else if (error.request) {

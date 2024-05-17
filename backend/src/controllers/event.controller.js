@@ -157,7 +157,7 @@ exports.SearchEventByOrganizerId = async (req, res, next) => {
 
 exports.deleteEvent = async (req, res, next) => {
   try {
-    const id = req.params.id; // Extract the id parameter from req.params
+    const id = req.params.id; 
     const event = await Event.findByIdAndDelete(id);
     if (!event) {
       return res.status(404).json({
@@ -224,19 +224,16 @@ exports.bookTicket = async (req, res, next) => {
     const { id } = req.params;
     const { userId, ticketType } = req.body;
 
-    // Check if the event exists
     const event = await Event.findById(id);
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    // Check if the ticketType is valid
     const validTicketTypes = ['premium', 'regular', 'classic'];
     if (!validTicketTypes.includes(ticketType)) {
       return res.status(400).json({ message: 'Invalid ticket type' });
     }
 
-    // Check if the user has already booked a ticket for this event
     const isUserBooked = event.booked_users.some(
       (bookedUser) => bookedUser.userId.toString() === userId
     );
@@ -244,12 +241,10 @@ exports.bookTicket = async (req, res, next) => {
       return res.status(400).json({ message: 'You have already booked a ticket for this event' });
     }
 
-    // Book the ticket
     const newBookedUser = { userId, ticketType };
     event.booked_users.push(newBookedUser);
     await event.save();
 
-    // Find the ticketId
     const ticket = event.booked_users.find(
       (bookedUser) =>
         bookedUser.userId.toString() === userId &&
@@ -270,8 +265,6 @@ exports.bookTicket = async (req, res, next) => {
 exports.getBookedEvents = async (req, res, next) => {
   try {
     const userId = req.params.userId;
-
-    // Find events where the user has booked a ticket
     const bookedEvents = await Event.find({
       'booked_users.userId': userId,
     }).populate({
