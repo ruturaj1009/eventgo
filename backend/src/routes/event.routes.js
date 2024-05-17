@@ -5,19 +5,19 @@ const authMiddleware = require('../middleware/auth.middleware');
 const router = express.Router();
 
 //event
-router.post('/',  eventController.createEvent);
-router.get('/', eventController.getEvents);
-router.get('/id/:id', eventController.getEventById);
-router.get('/search', eventController.getSearchEvents);
-router.delete('/delete/:id', eventController.deleteEvent);
-router.put('/update/:id', eventController.updateEvent);
+router.post('/', authMiddleware.authenticate ,eventController.createEvent);
+router.get('/', authMiddleware.authenticate ,eventController.getEvents);
+router.get('/id/:id', authMiddleware.authenticate ,eventController.getEventById);
+router.get('/search', authMiddleware.authenticate ,eventController.getSearchEvents);
+router.delete('/delete/:id', authMiddleware.authenticate ,eventController.deleteEvent);
+router.put('/update/:id', authMiddleware.authenticate ,eventController.updateEvent);
 
-router.get('/oid/:id', eventController.getEventByOrganizerId);
-router.get('/oid/search/:id', eventController.SearchEventByOrganizerId);
+router.get('/oid/:id', authMiddleware.authenticate ,eventController.getEventByOrganizerId);
+router.get('/oid/search/:id', authMiddleware.authenticate ,eventController.SearchEventByOrganizerId);
 
 //booking
-router.post('/book/:id', eventController.bookTicket);
-router.get('/booking/:userId', eventController.getBookedEvents);
+router.post('/book/:id', authMiddleware.authenticate ,eventController.bookTicket);
+router.get('/booking/:userId', authMiddleware.authenticate ,eventController.getBookedEvents);
 
 
 module.exports = router;

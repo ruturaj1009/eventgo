@@ -8,7 +8,7 @@ const uploadfile = require('../middleware/multer.middleware');
 const router = express.Router();
 
 router.get('/:id', authMiddleware.authenticate, userController.getUser);
-router.post('/search', authMiddleware.authenticate,userController.searchUser);
-router.post('/upload', uploadfile.single("img"),imageController.uploadimg);
+router.post('/search',authMiddleware.authenticate , authMiddleware.authenticate,userController.searchUser);
+router.post('/upload', uploadfile.single("img"), authMiddleware.authenticate ,imageController.uploadimg);
 
 module.exports = router;

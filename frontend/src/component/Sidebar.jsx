@@ -58,6 +58,7 @@ const Sidebar = () => {
             <a
               onClick={() => handleLogout()}
               className="list-group-item list-group-item-action py-3 ripple"
+              style={{cursor:"pointer"}}
             >
               <i className="fas fa-lock fa-fw me-3"></i>
               <span>Log out </span>
